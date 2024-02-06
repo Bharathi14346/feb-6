@@ -1,0 +1,31 @@
+stages:
+  - build
+  - test
+  - deploy
+
+variables:
+  BUILD_IMAGE: "node:12"
+
+before_script:
+  - npm install -g yarn
+
+build:
+  stage: build
+  image: $BUILD_IMAGE
+  script:
+    - yarn install
+    - yarn build
+
+test:
+  stage: test
+  image: $BUILD_IMAGE
+  script:
+    - yarn test
+
+deploy:
+  stage: deploy
+  script:
+    - echo "Deploying..."
+    # Add your deployment commands here
+  only:
+    - master
